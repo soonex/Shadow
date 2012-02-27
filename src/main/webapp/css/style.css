@@ -1,7 +1,7 @@
-body{
-    background: url(../img/bg.jpg) repeat scroll #EEE;
+html {
     padding: 0 0 20px;
     font:12px/1.5 "微软雅黑",tahoma,arial,\5b8b\4f53;
+    background: url(../img/bg.jpg) repeat scroll #EEE;
 }
 
 #header {
@@ -76,6 +76,11 @@ body{
 }
 .ui-widget-header .ui-icon {
     /*background: transparent;*/
+}
+
+.timeTable .day-hover li{
+    /*font-weight: 700;*/
+    border: 1px solid #A1A1A8;
 }
 
 #main .msg {

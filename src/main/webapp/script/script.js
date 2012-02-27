@@ -5,12 +5,35 @@
  */
 
 $(function () {
-    $( "#datepicker" ).datepicker();
-
     var time_Table_Element = document.getElementById("timeTable");
     var time_Table = new TimeTable(time_Table_Element);
     time_Table.load();
     time_Table.sort();
+
+    var datepicker = $("#datepicker").datepicker();
+    datepicker.on("mouseenter", ".ui-state-default", function (e) {
+        $(e.target).draggable({
+            helper:'clone'
+        });
+        time_Table.element.find(".ui-sortable").droppable({
+            accept:'.ui-state-default',
+            over: function(event, ui) {
+                var targetUL= $(this);
+                targetUL.parent().siblings().find("ul.ui-sortable:eq("+(targetUL.index()-1)+")").addClass("day-hover");
+            },
+            out: function(event, ui) {
+                time_Table.element.find(".day-hover").removeClass("day-hover");
+            },
+            drop:function (event, ui) {
+                var date = datepicker.datepicker("getDate");
+                var days = datepicker.find(".ui-state-default");
+                date = new Date(date.getFullYear(),date.getMonth(),days.index(ui.draggable)+1);
+                alert(date);
+                time_Table.element.find(".day-hover").removeClass("day-hover");
+            }
+        })
+    });
+
 });
 
 
@@ -64,9 +87,9 @@ TimeTable.prototype.reload = function () {
     this.refreshData();
     var ulElements = this.element.find("ul");
     var table = this.data.table;
-    for(var row= 0;row<table.length;++row){
-        for(var col =0;col<table[row].length;++col){
-            ulElements.eq((row*table[row].length)+col).html($("#traineeTmpl").tmpl(table[row][col]));
+    for (var row = 0; row < table.length; ++row) {
+        for (var col = 0; col < table[row].length; ++col) {
+            ulElements.eq((row * table[row].length) + col).html($("#traineeTmpl").tmpl(table[row][col]));
         }
     }
 
@@ -86,15 +109,15 @@ TimeTable.prototype.sort = function () {
 
     var ulElements = thisObj.element.find('ul');
     var targetElement = null;
-    var ulElement =null;
+    var ulElement = null;
     var divElement = null;
-    thisObj.element.on("mousedown",function(e){
-        if('LI' == e.target.tagName){
+    thisObj.element.on("mousedown", function (e) {
+        if ('LI' == e.target.tagName) {
             targetElement = $(e.target);
             ulElement = targetElement.parent();
-            divElement= ulElement.parent();
-            ulElement.css('height',divElement.height()).css('padding-bottom',0)
-                .css('margin-bottom',0);
+            divElement = ulElement.parent();
+            ulElement.css('height', divElement.height()).css('padding-bottom', 0)
+                .css('margin-bottom', 0);
         }
     });
 
@@ -111,8 +134,8 @@ TimeTable.prototype.sort = function () {
             dest.posFrom = $item.index();
         },
         stop:function (event, ui) {
-            ulElement.css('height','auto').css('padding-bottom','3000px')
-                .css('margin-bottom','-3000px');
+            ulElement.css('height', 'auto').css('padding-bottom', '3000px')
+                .css('margin-bottom', '-3000px');
 
             var $item = ui.item;
             var $ulItem = $item.parent('ul');
@@ -126,8 +149,8 @@ TimeTable.prototype.sort = function () {
                 thisObj.save(dest);
             }
         },
-        change:function(){
-            ulElement.css('height',divElement.height());
+        change:function () {
+            ulElement.css('height', divElement.height());
         }
     }).sortable({
             placeholder:'ui-state-highlight'
@@ -135,7 +158,6 @@ TimeTable.prototype.sort = function () {
             connectWith:ulElements
         }).disableSelection();
 };
-
 
 
 function Matrix(dayAmount, periodAmount) {
