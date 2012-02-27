@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+.timeTable{
+}
+
+.row-fluid .span2{
+    background: none repeat scroll 0 0 #E0ECFF;
+    border-left: 1px solid #080808;
+}
+
+#week {
+	background: none repeat scroll 0 0 #E0ECFF;
+}
+
+#week span {
+	margin: 1px 1px;
+	background: none repeat scroll 0 0 #FAFAFA;
+	min-height: 100px;
+	line-height: 100px;
+	width: 120px;
+}
+
+#week .title {
+	min-height: 30px;
+	height: 30px;
+	line-height: 30px;
+}
+
+#week div {
+	width: 100%;
+	overflow: hidden;
+	zoom: 1;
+	display: table;
+}
+
+#week ul {
+	float: left;
+	background: none repeat scroll 0 0 #FAFAFA;
+	display: table-cell;
+	vertical-align: middle;
+	min-height: 100px;
+	width: 120px;
+    padding-bottom: 3000px;
+    margin-bottom: -3000px;
+}
+
+#week li {
+	margin: 5px auto;
+	background: none repeat scroll 0 0 #FAFAFA;
+	border: 1px solid #499B33;
+	text-align: center;
+	width: 100px;
+	padding: 2px;
+	font-size: 1em;
+	cursor: move;
+}
+
+#timeWrap { /*position: relative;*/
+	margin: 0 auto;
+	top: 70px;
+	text-align: left;
+	width: 600px;
+}
+
+
+.ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight
+	{
+	background: url("../img/ui-bg_highlight-soft_75_ffe45c_1x100.png")
+		repeat-x scroll 50% top #FFE45C !important;
+	border: 1px solid #FED22F !important;
+	color: #363636;
+}

@@ -1,0 +1,99 @@
+@CHARSET "UTF-8";
+
+
+
+#container-page {
+	background: url(../images/content-bg.jpg);
+	height: auto !important;
+	min-height: 100%;
+	position: relative;
+	text-align: left;
+}
+
+#container-content {
+	margin: 0 auto;
+	width: 960px;
+}
+
+#timeWrap { /*position: relative;*/
+	margin: 0 auto;
+	width: 760px;
+}
+
+#timeWrap table {
+	width: 100%;
+	background:#E0ECFF;
+	table-layout: fixed;
+	text-align: center;
+}
+
+#timeWrap tr {
+	background: #FAFAFA;
+	min-height: 100px;
+	width: 120px;
+	/*float: left;*/
+	margin-bottom: 10px;
+}
+
+#timeWrap th {
+	height: 30px;
+}
+
+#timeWrap td {
+	vertical-align: top;
+	padding: 5px;
+	margin-bottom:10px;
+}
+
+#timeWrap td:first-child {
+	vertical-align: middle !important;
+}
+
+.item {
+	margin: 5px auto;
+	border: 1px solid #499B33;
+	padding: 2px;
+	cursor: move;
+}
+
+#container-foot {
+	background:#E5E5E5 url(../images/mid-bg-gray.jpg) repeat-x;
+	width: 100%;
+	position: absolute;
+	bottom: 0 !important;
+	bottom: -1px; /* For Certain IE widths */
+	height: 40px;
+}
+
+#foot {
+	background: url(../images/shadow-gray.jpg) no-repeat center top;
+	padding: 0 1em;
+	line-height: 40px;
+}
+
+#foot p {
+	text-align: center;
+}
+
+#msg {
+	position: absolute;
+	top: 0;
+	left: 60%;
+	display: none;
+	padding: 0.4em;
+	height: 135px;
+	width: 240px;
+	z-index: 1;
+}
+
+#msg h3 {
+	margin: 0;
+	padding: 0.4em;
+	text-align: center;
+}
+
+#msg p {
+	padding: 0.4em;
+	font-size: 1.4em;
+	text-indent: 2em;
+}

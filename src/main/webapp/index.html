@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Shadow</title>
+    <META content="text/html; charset=UTF-8" http-equiv=content-type>
+    <!-- style -->
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>-->
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>-->
+    <link rel="stylesheet" type="text/css" href="css/theme/ui-lightness/jquery-ui-1.8.18.custom.css"/>
+    <link rel="stylesheet" type="text/css" href="base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" type="text/css" href="solutions/ie-shadow/ie-shadow.css"/>
+    <![endif]-->
+
+
+</head>
+<body>
+
+<div class="ui-wrap">
+
+    <div id="header" class="ui-wrap-item sl-ie-shadow">
+        <div class="ui-wrap-cnt">
+            <h1 class="fn-left">Shadow</h1>
+            <ul class="ui-nav fn-left">
+                <li class="ui-nav-item fn-left">
+                    <a href="#" class="ui-nav-item-link">
+                        <cite>Home</cite>
+                        <i></i>
+                    </a>
+                </li>
+                <li class="ui-nav-item ui-nav-item-current">
+                    <a href="#" class="ui-nav-item-link">
+                        <cite>App Store</cite>
+                        <i></i>
+                    </a>
+                </li>
+                <li class="ui-nav-item">
+                    <a href="#" class="ui-nav-item-link">
+                        <cite>Design</cite>
+                        <i></i>
+                    </a>
+                </li>
+                <li class="ui-nav-item">
+                    <a href="#" class="ui-nav-item-link">
+                        <cite>About</cite>
+                        <i></i>
+                    </a>
+                </li>
+            </ul>
+            <!--<div class="search">-->
+                <!--<label>-->
+                    <!--<input type="text"/>-->
+                <!--</label>-->
+            <!--</div>-->
+        </div>
+        <!-- .ui-wrap-cnt  -->
+        <div class="ui-wrap-item-shadow"></div>
+    </div>
+    <!--.ui-wrap-item-->
+    <!-- #header -->
+
+    <div id="main">
+        <div class="ui-wrap-item sl-ie-shadow">
+            <div class="ui-wrap-cnt fn-clear">
+                <div class="content fn-left">
+                    <div class="content-item">
+                        <h1>Time Table</h1>
+                    </div>
+                    <div class="content-item">
+                        <div class="timetable-wrap ">
+                            <div class="msg">
+                                <p></p>
+                            </div>
+                            <div id="timeTable" class="timeTable">
+                                <div>
+                                    <span></span>
+                                    <span>Monday</span>
+                                    <span>Tuesday</span>
+                                    <span>Wednesday</span>
+                                    <span>Thursday</span>
+                                    <span>Friday</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side">
+                    <div id="datepicker"></div>
+                </div>
+            </div>
+            <!-- .ui-wrap-cnt  -->
+        </div>
+        <!-- .ui-wrap-item -->
+
+    </div>
+    <!-- #main -->
+
+
+    <div id="footer" class="ui-wrap-item sl-ie-shadow">
+        <div class="ui-wrap-cnt copyright">
+            <p>
+                Sean. All Rights Reserved
+                <br/>
+                &copy; Company 2012
+            </p>
+        </div>
+        <!-- .ui-wrap-cnt  -->
+        <div class="ui-rc-1px"></div>
+    </div>
+    <!-- .ui-wrap-item -->
+    <!-- #footer  -->
+
+</div>
+<!-- .ui-wrap  -->
+
+
+<!-- javascript libs -->
+<script type="text/javascript" src="script/lib/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="script/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="script/lib/jquery-ui-1.8.18.custom.min.js"></script>
+
+<!--[if lte IE 8]>
+<script type="text/javascript" src="solutions/ie-shadow/ie-shadow.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="script/script.js"></script>
+
+
+
+<script id="tableTmpl" type="text/html">
+    {{tmpl($item.data.table) "#rowsTmpl"}}
+</script>
+
+<script id="rowsTmpl" type="text/html">
+    <div>
+        {{each(i,$trainees) $item.data}}
+        {{if i == 0}}
+        <span>8:00 am - 9:00 am</span>
+        {{/if}}
+        <ul>
+            {{tmpl($trainees) "#traineeTmpl"}}
+        </ul>
+        {{/each}}
+    </div>
+</script>
+
+
+<script id="traineeTmpl" type="text/html">
+    <li>{{= name}}</li>
+</script>
+
+
+</body>
+</html>

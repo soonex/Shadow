@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ETS</title>
+
+    <!-- style -->
+    <link rel="stylesheet" href="bak/css/base.css">
+    <link rel="stylesheet" href="bak/css/ui-lightness/jquery.ui.all.css">
+    <link rel="stylesheet" href="bak/css/sheet.css">
+</head>
+<body>
+
+<div id="content-wrapper"><!-- timesheet area -->
+    <div id="week">
+        <div>
+            <span class="title"></span>
+            <span class="title">Monday</span>
+            <span class="title">Tuesday</span>
+            <span class="title">Wednesday</span>
+            <span class="title">Thursday</span>
+            <span class="title">Friday</span>
+        </div>
+    </div>
+</div>
+
+
+<div id="footer-wrapper">
+    <div id="footer">
+        <div class="bottom">
+            <p>&copy; Copyright 2011 Sean. All Rights Reserved.</p>
+        </div>
+    </div>
+</div>
+
+<!-- message panel -->
+<div id="msg" class="ui-widget-content ui-corner-all">
+    <h3 id="title" class="ui-widget-header ui-corner-all">Notice</h3>
+    <p></p>
+</div>
+
+
+<!-- javascript libs -->
+<script type="text/javascript" src="script/lib/jquery.min.js"></script>
+<script type="text/javascript" src="script/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="script/lib/jquery.datalink.js"></script>
+<script type="text/javascript" src="script/lib/jquery-ui.custom.min.js"></script>
+
+
+<script type="text/javascript" src="script/sheet.js"></script>
+
+
+<script id="tableTmpl" type="text/html">
+    {{tmpl($item.data.table) "#rowsTmpl"}}
+</script>
+
+<script id="rowsTmpl" type="text/html">
+    <div>
+        {{each(i,$trainees) $item.data}}
+        {{if i == 0}}
+        <span>8:00 am - 9:00 am</span>
+        {{/if}}
+        <ul>
+            {{tmpl($trainees) "#traineeTmpl"}}
+        </ul>
+        {{/each}}
+    </div>
+</script>
+
+<script id="traineesTmpl" type="text/html">
+    <ul>
+        <div style="clear:both;visibility:hidden;"></div>
+        {{tmpl($item.data) "#traineeTmpl"}}
+    </ul>
+</script>
+
+<script id="traineeTmpl" type="text/html">
+    <li>{{= name}}</li>
+</script>
+
+
+</body>
+</html>

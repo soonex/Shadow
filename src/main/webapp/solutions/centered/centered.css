@@ -1,0 +1,41 @@
+.sl-center-outer {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    background: ivory;
+}
+
+.sl-center-outer[class] {
+    display: table;
+    position: static;
+}
+
+.sl-center-middle {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+}
+
+/* for explorer only*/
+.sl-center-middle[class] {
+    display: table-cell;
+    vertical-align: middle;
+    position: static;
+    width: 100%;
+}
+
+.sl-center-inner {
+    position: relative;
+    top: -50%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+*+html .sl-center-outer[class] {
+    position: relative;
+}
+
+*+html .sl-center-middle[class] {
+    position: absolute;
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ideas from an interview question</title>
+    <style>
+        * { margin:0; padding:0; }
+        body { padding:50px; }
+        pre { padding:8px; border:1px solid #ccc; background:#f2f2f2; font:11px/150% 'courier new',arial; }
+        p { line-height:180%; }
+        ul { list-style:none; }
+
+        #wrapper {
+            border:1px solid #ccc;
+            width:400px;
+            height:200px;
+            text-align:center;
+            line-height:200px;
+            _font-size:120px;
+        }
+        #wrapper a {
+            display:-moz-inline-block;
+            display:inline-block;
+            /* zoom:1; */
+            margin:0 auto;
+            width:80px;
+            height:20px;
+            font:11px/20px arial;
+            background:red;
+        }
+
+        #wrapper_2 {
+            border:1px solid #ccc;
+            width:400px;
+            height:200px;
+            text-align:center;
+            display:table-cell;
+            vertical-align:middle;
+            *line-height:200px;
+            _font-size:175px;
+        }
+        #wrapper_2 img {
+            *vertical-align:middle;
+            border:1px solid #ccc;
+        }
+
+        .pager { border:1px dotted #ccc; text-align:center; }
+        .pager * { display:-moz-inline-box; -moz-box-align:center; display:inline-block; padding:0 12px; height:28px; line-height:28px; border:1px solid #ccc; }
+        .pager span { border-color:white; padding:0 3px; }
+        .pager strong { border-color:red; }
+        .pager .last { background:red; }
+
+        #menu { text-align:center; border:1px dotted #ccc; }
+        #menu del { display:inline-block; text-decoration:none; }
+        #menu ul { display:table; margin:0 auto; }
+        #menu li { display:table-cell; *float:left; }
+        #menu li a { display:block; width:160px; background:gray; margin:0 3px; }
+    </style>
+    <script type="text/javascript" src="http://127.0.0.1/scripts/jquery.js"></script>
+</head>
+<body>
+
+<h2 id="main">一道面试题，当时没有解出来。（块级元素的垂直居中）</h2><br />
+
+<div id="wrapper">
+
+    <a href="">BTN</a>
+</div>
+<br />
+
+<pre>
+#wrapper {
+	border:1px solid #ccc;
+	width:400px;
+	height:200px;
+	<span style="color:red;">text-align:center;</span>
+	<span style="color:red;">line-height:200px;</span>　　<span style="color:gray">// Vertical Align For IE7 & Firefox</span>
+	<span style="color:green;">_font-size:120px;</span>　　<span style="color:gray">// Vertical Align For IE6</span>
+
+}
+#wrapper a {
+	<span style="color:blue;">display:-moz-inline-block;</span>　　<span style="color:gray">// For Firefox 2(-)</span>
+	<span style="color:red;">display:inline-block;</span>　　<span style="color:gray">// For Firefox 3 & IE6, 对于IE6来说其实相当于zoom:1, 仅仅是给elem一个layout。</span>
+			　　　 <span style="color:gray">// 注意：支持display:inline-block的浏览器有：Firefox3,Safari,Opera</span>
+	<span style="color:blue;">margin:0 auto;</span>　　<span style="color:gray">// For Firefox 2(-)</span>
+
+	width:80px;
+	height:20px;
+	font:11px/20px arial;
+	background:red;
+}
+</pre>
+<br /><br /><hr /><br /><br />
+<h2 id="p1">扩展（一）：<strong>水平居中的翻页元素</strong></h2><br />
+<div class="pager">
+    <a href="" class="first">first</a>
+    <a href="" class="prev">prev</a>
+    <a href="">1</a>
+
+    <strong>2</strong>
+    <a href="">3</a>
+    <span>...</span>
+    <a href="">8</a>
+    <a href="" class="next">next</a>
+    <a href="" class="last">last</a>
+
+</div>
+<br />
+<pre>
+&lt;div class="pager"&gt;
+	&lt;a href="" class="first"&gt;first&lt;/a&gt;
+	&lt;a href="" class="prev"&gt;prev&lt;/a&gt;
+	&lt;a href=""&gt;1&lt;/a&gt;
+
+	&lt;strong&gt;2&lt;/strong&gt;
+	&lt;a href=""&gt;3&lt;/a&gt;
+	&lt;span&gt;...&lt;/span&gt;
+	&lt;a href=""&gt;8&lt;/a&gt;
+
+	&lt;a href="" class="next"&gt;next&lt;/a&gt;
+	&lt;a href="" class="last"&gt;last&lt;/a&gt;
+&lt;/div&gt;
+</pre><br />
+<pre>
+.pager {
+	width:800px;
+	border:1px dotted #ccc;
+	<span style="color:red">text-align:center;</span>
+
+}
+.pager * {
+	<span style="color:blue">display:-moz-inline-box;</span>　　<span style="color:gray">// 此属性会造成text-align、text-indent等无效的问题，不建议使用。</span>
+	<span style="color:blue">-moz-box-align:center;</span>　　<span style="color:gray">// 解决上个属性造成的text不能垂直居中的问题</span>
+	<span style="color:red">display:inline-block;</span>
+	padding:0 12px;
+	height:28px;
+	line-height:28px;
+	border:1px solid #ccc;
+}
+.pager span {
+	border-color:white;
+	padding:0 3px;
+}
+.pager strong {
+	border-color:red;
+}
+.pager .last {
+	background:red;
+}
+</pre>
+<br />
+
+<p>这种方法有个局限：因为使用了-moz-inline-box属性，所以不能设置text-align,text-indent。因此不能用background进行图片替换。</p>
+<br /><br /><hr /><br /><br />
+
+<h2 id="p2">扩展（二）：菜单的水平居中</h2><br />
+<div id="menu">
+    <del>
+        <ul>
+            <li><a href="">Tab One</a></li>
+            <li><a href="">Tab Two: Longer</a></li>
+
+            <li><a href="">Tab Three: Longest</a></li>
+            <li><a href="">Tab Four</a></li>
+        </ul>
+    </del>
+</div>
+<br />
+<pre>
+&lt;div id="menu"&gt;
+	<span style="color:red">&lt;del&gt;</span>　　<span style="color:gray">// 非del莫属？！</span>
+
+	&lt;ul&gt;
+		&lt;li&gt;&lt;a href=""&gt;Tab One&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href=""&gt;Tab Two: Longer&lt;/a&gt;&lt;/li&gt;
+
+		&lt;li&gt;&lt;a href=""&gt;Tab Three: Longest&lt;/a&gt;&lt;/li&gt;
+		&lt;li&gt;&lt;a href=""&gt;Tab Four&lt;/a&gt;&lt;/li&gt;
+	&lt;/ul&gt;
+
+	<span style="color:red">&lt;/del&gt;</span>
+&lt;/div&gt;
+</pre>
+<br />
+<pre>
+#menu {
+	border:1px dotted #ccc;
+	<span style="color:red">text-align:center;</span>
+}
+#menu del {
+	<span style="color:red">display:inline-block;</span>
+	text-decoration:none;
+}
+#menu ul {
+	<span style="color:red">display:table;</span>
+
+	<span style="color:red">margin:0 auto;</span>
+}
+#menu li {
+	<span style="color:red">display:table-cell;</span>
+	<span style="color:red">*float:left;</span>
+}
+#menu li a {
+	display:block;
+	width:160px;
+	background:gray;
+	margin:0 3px;
+}
+</pre>
+<br />
+<p>此方法来源：<a href="http://www.cssplay.co.uk/menus/centered.html" target="_blank">http://www.cssplay.co.uk/menus/centered.html</a></p>
+<br /><br /><hr /><br /><br />
+
+<h2 id="p3">扩展（三）：图片的垂直居中。（内联元素的垂直居中）</h2><br />
+<div id="wrapper_2">
+    <img src="http://www.google.com/intl/en/images/logo.gif" />
+</div>
+<br />
+
+<pre>
+#wrapper_2 {
+	border:1px solid #ccc;
+	width:400px;
+	height:200px;
+	<span style="color:red;">text-align:center;</span>
+	<span style="color:blue;">display:table-cell;</span>　　<span style="color:gray">// For Firefox</span>
+
+	<span style="color:blue;">vertical-align:middle;</span>　　<span style="color:gray">// For Firefox</span>
+	<span style="color:red;">*line-height:200px;</span>　　<span style="color:gray">// Vertical Align For IE7</span>
+	<span style="color:red;">_font-size:175px;</span>　　<span style="color:gray">// Vertical Align For IE6, FontSize 大法</span>
+}
+#wrapper_2 img {
+	<span style="color:red;">*vertical-align:middle;</span>　　<span style="color:gray">// For IE, 不设的话图片下面有个小空位</span>
+
+	border:1px solid #ccc;
+}
+</pre>
+
+</body>
+</html>
