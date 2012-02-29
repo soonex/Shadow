@@ -33,30 +33,28 @@ public class TimeSheetController {
 
 	@RequestMapping(params = "method=load", method = RequestMethod.GET)
 	public String load(ModelMap model,String time) {
-		logger.info("TimeSheetController ->  load timesheet view");
+		logger.info("TimeSheetController ->  load time table");
 
 		Date date = new Date();
         if(!"null".equals(time)){
             date.setTime(Long.parseLong(time));
         }
-        System.out.println(date);
-        System.out.println(new Date(1315497600000L));
-//		date.setTime(1315497600000L);
 
-		Day day = dayService.findByDate(date);
 		Week week = weekService.findByDate(date);
-		model.addAttribute("week", week);
-		
-		model.addAttribute("data", week);
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("week",week);
+        result.put("selectedDate", date);
+        model.addAttribute("result",result);
+
 		return "timeSheetView";
 	}
 
 	@RequestMapping(params = "method=save", method = RequestMethod.POST)
 	public String save(ModelMap model,int dayFrom, int dayTo, int periodFrom, int periodTo,
 			int posFrom, int posTo, long time ,String name) {
-		logger.info("TimeSheetController ->  save timesheet view");
+		logger.info("TimeSheetController ->  save time table");
 
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		Date date = new Date();
 		date.setTime(time);
@@ -72,12 +70,12 @@ public class TimeSheetController {
 		success = dayService.transfer(dayfrom, dayto, name, periodFrom,
 				periodTo, posFrom, posTo);
 
-        data.put("time",date.getTime());
+        result.put("time",date.getTime());
 		if (!success) {
-			data.put("msg", MsgUtils.getMsg("failure"));
+            result.put("msg", MsgUtils.getMsg("failure"));
 		}
 
-		model.addAttribute("data", data);
+		model.addAttribute("result", result);
 		return "timeSheetView";
 	}
 }

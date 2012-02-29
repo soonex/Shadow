@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="Shadow:Web exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/Shadow_Web_exploded</output-path>
+  <artifact type="exploded-war" build-on-make="true" name="Shadow">
+    <output-path>I:/root/Shadow</output-path>
     <root id="root">
       <element id="javaee-facet-resources" facet="Shadow/web/Web" />
       <element id="directory" name="WEB-INF">

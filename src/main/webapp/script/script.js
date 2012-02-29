@@ -73,6 +73,7 @@ TimeTable.prototype.refreshData = function (time) {
         },
         cache:false,
         success:function (result) {
+
             dataTmp = toMatrix(result);
         }
     });
@@ -130,8 +131,7 @@ TimeTable.prototype.sort = function () {
         periodTo:null,
         posFrom:null,
         posTo:null,
-        name:null,
-        time:thisObj.date.getTime()
+        name:null
     };
 
     var ulElements = thisObj.element.find('ul');
@@ -171,6 +171,7 @@ TimeTable.prototype.sort = function () {
             dest.name = $.text(ui.item);
             thisObj.element.off("mousedown");
             if (null != dest.periodTo) {
+                dest.time = thisObj.date.getTime()
                 thisObj.save(dest);
             }
         },
