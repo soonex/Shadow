@@ -5,49 +5,72 @@
  */
 
 $(function () {
-    var time_Table_Element = document.getElementById("timeTable");
-    var time_Table = new TimeTable(time_Table_Element);
+    var date = new Date();  // current date of date_picker
+
+    //construct time table
+    var time_Table = new TimeTable(document.getElementById("timeTable"),date);
     time_Table.load();
     time_Table.sort();
 
-    var datepicker = $("#datepicker").datepicker();
-    datepicker.on("mouseenter", ".ui-state-default", function (e) {
-        $(e.target).draggable({
-            helper:'clone'
-        });
-        time_Table.element.find(".ui-sortable").droppable({
-            accept:'.ui-state-default',
-            over: function(event, ui) {
-                var targetUL= $(this);
-                targetUL.parent().siblings().find("ul.ui-sortable:eq("+(targetUL.index()-1)+")").addClass("day-hover");
-            },
-            out: function(event, ui) {
-                time_Table.element.find(".day-hover").removeClass("day-hover");
-            },
-            drop:function (event, ui) {
-                var date = datepicker.datepicker("getDate");
-                var days = datepicker.find(".ui-state-default");
-                date = new Date(date.getFullYear(),date.getMonth(),days.index(ui.draggable)+1);
-                alert(date);
-                time_Table.element.find(".day-hover").removeClass("day-hover");
-            }
-        })
+
+    var $date_picker = $("#datepicker").datepicker({
+        showAnim: '',
+        onChangeMonthYear:function (year, month, inst) {
+            date.setYear(year);
+            date.setMonth(month - 1);
+        },
+        onSelect:function (dateText, inst) {
+            var date = new Date(dateText);
+            time_Table.date= date;
+            time_Table.reload(date.getTime());
+        }
     });
+
+    if (!$.browser.msie || $.browser.version >= 8) {
+
+        $date_picker.on("mouseenter", ".ui-state-default", function (e) {
+            $(e.target).draggable({
+                helper:'clone'
+            });
+        });
+
+        // clone day info from date picker
+//        time_Table.element.find(".ui-sortable").droppable({
+//            accept:'.ui-state-default',
+//            over:function (event, ui) {
+//                var targetUL = $(this);
+//                var ulElements = time_Table.element.children("div").find("ul.ui-sortable:eq(" + (targetUL.index() - 1) + ")");
+//                ulElements.addClass("day-hover");
+//            },
+//            out:function (event, ui) {
+//                time_Table.element.find(".day-hover").removeClass("day-hover");
+//            },
+//            drop:function (event, ui) {
+//                time_Table.element.find(".day-hover").removeClass("day-hover");
+//                var days = $date_picker.find(".ui-state-default");
+//                date.setDate(days.index(ui.draggable) + 1);
+//            }
+//        });
+    }
 
 });
 
 
-function TimeTable(element) {
+function TimeTable(element,date) {
     this.element = $(element);
-    this.data = "";
+    this.data = null;
+    this.date = date;
 }
 
-TimeTable.prototype.refreshData = function () {
+TimeTable.prototype.refreshData = function (time) {
     var dataTmp = this.data;
     $.ajax({
         async:false,
         url:"timesheet.do?method=load",
         dataType:"json",
+        data:{
+            time:time
+        },
         cache:false,
         success:function (result) {
             dataTmp = toMatrix(result);
@@ -57,12 +80,13 @@ TimeTable.prototype.refreshData = function () {
 };
 
 TimeTable.prototype.load = function () {
-    this.refreshData();
+    this.refreshData(null);
     this.element.append($("#tableTmpl").tmpl(this.data));
 };
 
 TimeTable.prototype.save = function (dest) {
     var isModified = false;
+    var time = null;
     $.ajax({
         async:false,
         url:"timesheet.do?method=save",
@@ -70,6 +94,7 @@ TimeTable.prototype.save = function (dest) {
         dataType:"json",
         data:dest,
         success:function (data) {
+            time = data.time;
             if (undefined != data.msg) {
                 var $msg = $("#main .msg");
                 $msg.html(data.msg);
@@ -79,12 +104,12 @@ TimeTable.prototype.save = function (dest) {
         }
     });
     if (isModified) {
-        this.reload();
+        this.reload(time);
     }
 };
 
-TimeTable.prototype.reload = function () {
-    this.refreshData();
+TimeTable.prototype.reload = function (time) {
+    this.refreshData(time);
     var ulElements = this.element.find("ul");
     var table = this.data.table;
     for (var row = 0; row < table.length; ++row) {
@@ -95,6 +120,7 @@ TimeTable.prototype.reload = function () {
 
 };
 
+
 TimeTable.prototype.sort = function () {
     var thisObj = this;
     var dest = {
@@ -104,28 +130,27 @@ TimeTable.prototype.sort = function () {
         periodTo:null,
         posFrom:null,
         posTo:null,
-        name:null
+        name:null,
+        time:thisObj.date.getTime()
     };
 
     var ulElements = thisObj.element.find('ul');
-    var targetElement = null;
     var ulElement = null;
     var divElement = null;
-    thisObj.element.on("mousedown", function (e) {
-        if ('LI' == e.target.tagName) {
-            targetElement = $(e.target);
-            ulElement = targetElement.parent();
-            divElement = ulElement.parent();
-            ulElement.css('height', divElement.height()).css('padding-bottom', 0)
-                .css('margin-bottom', 0);
-        }
+    thisObj.element.on("mousedown", "li", function (e) {
+        var liElement = $(e.target);
+        ulElement = liElement.parent();
+        divElement = ulElement.parent();
+        ulElement.css('height', divElement.height()).css('padding-bottom', 0)
+            .css('margin-bottom', 0);
     });
+
 
     ulElements.sortable({
         // opacity : 0.6,
         items:'li',
-        tolerance:'pointer',
         start:function (event, ui) {
+
             var $item = ui.item;
             var $ulItem = $item.parent('ul');
 
@@ -149,7 +174,7 @@ TimeTable.prototype.sort = function () {
                 thisObj.save(dest);
             }
         },
-        change:function () {
+        change:function (evnet, ui) {
             ulElement.css('height', divElement.height());
         }
     }).sortable({

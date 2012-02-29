@@ -1,17 +1,9 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Serializable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
 
 public class FileUtils implements Serializable {
 
@@ -42,20 +34,16 @@ public class FileUtils implements Serializable {
 				.getResource("").getPath();
 
 		filePath += fileName;
-		File file = new File(filePath);
-		if (file.exists() != false) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return file;
+        return new File(filePath);
 	}
 
 	public String readFile(String fileName) {
+        logger.info("FileUtils -> read file:"+fileName);
 		File file = getFile(fileName);
-
+        if (!file.exists()) {
+            return null;
+        }
+        
 		/* io */
 		StringBuilder stringBuilder = new StringBuilder();
 		try {
@@ -105,10 +93,18 @@ public class FileUtils implements Serializable {
 	}
 
 	public void writeFile(String fileName, String data) {
+        logger.info("FileUtils -> write file:"+fileName);
 		if (data.getBytes().length > 525) {
 			System.out.println(data);
 		}
 		File file = getFile(fileName);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 		/* nio */
 		// FileChannel fileChannel = null;
 		// MappedByteBuffer mappedByteBuffer = null;

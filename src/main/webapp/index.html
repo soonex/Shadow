@@ -22,7 +22,7 @@
 
     <div id="header" class="ui-wrap-item sl-ie-shadow">
         <div class="ui-wrap-cnt">
-            <h1 class="fn-left">Shadow</h1>
+            <div class="logo fn-left"><h1>Shadow</h1></div>
             <ul class="ui-nav fn-left">
                 <li class="ui-nav-item fn-left">
                     <a href="#" class="ui-nav-item-link">
@@ -64,6 +64,7 @@
     <div id="main">
         <div class="ui-wrap-item sl-ie-shadow">
             <div class="ui-wrap-cnt fn-clear">
+
                 <div class="content fn-left">
                     <div class="content-item">
                         <h1>Time Table</h1>
@@ -119,7 +120,15 @@
 <!-- javascript libs -->
 <script type="text/javascript" src="script/lib/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="script/lib/jquery.tmpl.min.js"></script>
-<script type="text/javascript" src="script/lib/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.core.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.sortable.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.draggable.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.droppable.js"></script>
+<script type="text/javascript" src="script/lib/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="script/lib/jquery.effects.core.js"></script>
+<script type="text/javascript" src="script/lib/jquery.effects.blind.js"></script>
 
 <!--[if lte IE 8]>
 <script type="text/javascript" src="solutions/ie-shadow/ie-shadow.js"></script>
@@ -137,7 +146,7 @@
     <div>
         {{each(i,$trainees) $item.data}}
         {{if i == 0}}
-        <span>8:00 am - 9:00 am</span>
+        <span>8:00 - 9:00</span>
         {{/if}}
         <ul>
             {{tmpl($trainees) "#traineeTmpl"}}

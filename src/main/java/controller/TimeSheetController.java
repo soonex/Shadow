@@ -32,39 +32,34 @@ public class TimeSheetController {
 	WeekService weekService;
 
 	@RequestMapping(params = "method=load", method = RequestMethod.GET)
-	public String load(ModelMap model) {
-		logger.info("return load timesheet view");
+	public String load(ModelMap model,String time) {
+		logger.info("TimeSheetController ->  load timesheet view");
 
 		Date date = new Date();
-		date.setTime(1315497600000L);
-		//
-		// Day day = dayService.findByDate(date);
+        if(!"null".equals(time)){
+            date.setTime(Long.parseLong(time));
+        }
+        System.out.println(date);
+        System.out.println(new Date(1315497600000L));
+//		date.setTime(1315497600000L);
+
+		Day day = dayService.findByDate(date);
 		Week week = weekService.findByDate(date);
 		model.addAttribute("week", week);
 		
-//		List<?> rows = new ArrayList<Object>();
-//		List<List<?>> columns = new ArrayList<List<?>>();
-//		for(Day day : week.getDays()){
-//			for(Period period : day.getPeriods()){
-//				columns.add(period.getTrainees());
-//			}
-//		}
-		
-		
 		model.addAttribute("data", week);
-		// model.addAttribute("modified", week.getModified().getTime());
 		return "timeSheetView";
 	}
 
 	@RequestMapping(params = "method=save", method = RequestMethod.POST)
-	public String save(int dayFrom, int dayTo, int periodFrom, int periodTo,
-			int posFrom, int posTo, String name, ModelMap model) {
-		logger.info("return save timesheet view");
+	public String save(ModelMap model,int dayFrom, int dayTo, int periodFrom, int periodTo,
+			int posFrom, int posTo, long time ,String name) {
+		logger.info("TimeSheetController ->  save timesheet view");
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		
 		Date date = new Date();
-		date.setTime(1315497600000L);
+		date.setTime(time);
 		
 		Week week = weekService.findByDate(date);
 		List<Day> days = week.getDays();
@@ -72,17 +67,12 @@ public class TimeSheetController {
 		Day dayfrom = days.get(dayFrom);
 		Day dayto = days.get(dayTo);
 
-		// modified or not
-		// long modified = (Long) model.get("modified");
-		// if (dayService.isModified(day, modified)) {
-		// data.put("msg", MsgUtils.getMsg("modified"));
-		// }
-
 		// update successfully or not
 		boolean success = false;
 		success = dayService.transfer(dayfrom, dayto, name, periodFrom,
 				periodTo, posFrom, posTo);
 
+        data.put("time",date.getTime());
 		if (!success) {
 			data.put("msg", MsgUtils.getMsg("failure"));
 		}

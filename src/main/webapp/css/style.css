@@ -14,9 +14,10 @@ html {
     _position: absolute;/* for ie-6 */
 }
 
-#header h1 {
+#header .logo {
     line-height: 40px;
     font-size: 20px;
+    padding-left: 20px;
 }
 
 #header .sl-hvalign {
@@ -31,8 +32,9 @@ html {
 #main .content{
     position: relative;
     padding: 15px 0;
-    width: 720px\9;
-    width: 719px;
+    /*width: 720px\9;*/
+    /*width: 719px;*/
+    width: 74.8%;
     min-height: 600px;
     height: auto;
     background: white;
@@ -50,38 +52,59 @@ html {
 
 #main .side{
     float:left;
-    width: 240px;
     padding: 15px 0;
+    /*width: 240px;*/
+    width: 25%;
     text-align: center;
 }
 
 #datepicker{
     display: inline-block;
     padding: 15px 0;
+    width: 100%;
+    text-align: center;
 }
 
 #datepicker .ui-datepicker{
+    display: inline-block;
+    width: 80%;
     font:12px/1.5 "微软雅黑",tahoma,arial,\5b8b\4f53;
+}
+
+#datepicker .ui-datepicker-prev:hover,#datepicker .ui-datepicker-next:hover{
+    cursor: pointer;
 }
 
 .ui-widget-header {
     background: #F6A828;
 }
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    background:#F6F6F6;
-}
 
 .ui-widget-content {
     background:#EEE;
 }
-.ui-widget-header .ui-icon {
-    /*background: transparent;*/
+
+.ui-widget-content .ui-state-default,.ui-widget-content .ui-draggable-dragging{
+    background:#F6F6F6;
 }
 
+.ui-widget-content .ui-draggable-dragging{
+    border: 1px solid #CCCCCC;
+    color: #1C94C4;
+    font-weight: bold;
+}
+
+
+
+
+
 .timeTable .day-hover li{
-    /*font-weight: 700;*/
     border: 1px solid #A1A1A8;
 }
+
+.timeTable a.ui-state-highlight{
+    display: none;
+}
+
 
 #main .msg {
     /*background: #F7F7F9;*/
@@ -101,8 +124,6 @@ html {
 }
 
 #footer .copyright{
-    display: table-cell;
-    vertical-align: middle;
 }
 
 #footer .ui-wrap-cnt, #footer .ui-rc-1px {
@@ -137,8 +158,8 @@ html {
 .timeTable ul, .timeTable span{
     float: left;
     margin-left:1px;
-    width: 110px;
-    min-height: 60px;
+    width: 90px;
+    min-height: 45px;
     height: auto;
     background: #F9F9F9;
     padding-bottom: 3000px;
@@ -161,7 +182,7 @@ html {
     background-color: #F3F3F3;
     border: 1px solid #E1E1E8;
     color: #1E347B;
-    cursor: move;
+    cursor: default;
 }
 
 
@@ -174,7 +195,15 @@ html {
     margin: 0 auto;
     position: relative;
     z-index: 1001;
-    width: 960px;
+}
+
+.ui-wrap-item{
+    width: 80%;
+    /*min-width: 960px;*/
+    min-width: 800px;
+}
+.ui-wrap-cnt{
+    width: 100%;
 }
 
 .ui-wrap-item-shadow {
