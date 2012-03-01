@@ -38,7 +38,7 @@ public class FileUtils implements Serializable {
 	}
 
 	public String readFile(String fileName) {
-        logger.info("FileUtils -> read file:"+fileName);
+        logger.info("read file:"+fileName);
 		File file = getFile(fileName);
         if (!file.exists()) {
             return null;
@@ -93,13 +93,14 @@ public class FileUtils implements Serializable {
 	}
 
 	public void writeFile(String fileName, String data) {
-        logger.info("FileUtils -> write file:"+fileName);
+        logger.info("write file:"+fileName);
 		if (data.getBytes().length > 525) {
 			System.out.println(data);
 		}
 		File file = getFile(fileName);
         if (!file.exists()) {
             try {
+                logger.info("create file:"+fileName);
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();

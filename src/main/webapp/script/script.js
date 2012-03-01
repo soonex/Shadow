@@ -8,12 +8,12 @@ $(function () {
     var date = new Date();  // current date of date_picker
 
     //construct time table
-    var time_Table = new TimeTable(document.getElementById("timeTable"),date);
-    time_Table.load();
-    time_Table.sort();
+    var time_table = new Timetable(document.getElementById("timetable"),date);
+    time_table.load();
+    time_table.sort();
 
 
-    var $date_picker = $("#datepicker").datepicker({
+    var $date_picker = $("#date-picker").datepicker({
         showAnim: '',
         onChangeMonthYear:function (year, month, inst) {
             date.setYear(year);
@@ -21,8 +21,8 @@ $(function () {
         },
         onSelect:function (dateText, inst) {
             var date = new Date(dateText);
-            time_Table.date= date;
-            time_Table.reload(date.getTime());
+            time_table.date= date;
+            time_table.reload(date.getTime());
         }
     });
 
@@ -35,18 +35,18 @@ $(function () {
         });
 
         // clone day info from date picker
-//        time_Table.element.find(".ui-sortable").droppable({
+//        time_table.element.find(".ui-sortable").droppable({
 //            accept:'.ui-state-default',
 //            over:function (event, ui) {
 //                var targetUL = $(this);
-//                var ulElements = time_Table.element.children("div").find("ul.ui-sortable:eq(" + (targetUL.index() - 1) + ")");
+//                var ulElements = time_table.element.children("div").find("ul.ui-sortable:eq(" + (targetUL.index() - 1) + ")");
 //                ulElements.addClass("day-hover");
 //            },
 //            out:function (event, ui) {
-//                time_Table.element.find(".day-hover").removeClass("day-hover");
+//                time_table.element.find(".day-hover").removeClass("day-hover");
 //            },
 //            drop:function (event, ui) {
-//                time_Table.element.find(".day-hover").removeClass("day-hover");
+//                time_table.element.find(".day-hover").removeClass("day-hover");
 //                var days = $date_picker.find(".ui-state-default");
 //                date.setDate(days.index(ui.draggable) + 1);
 //            }
@@ -56,17 +56,17 @@ $(function () {
 });
 
 
-function TimeTable(element,date) {
+function Timetable(element,date) {
     this.element = $(element);
     this.data = null;
     this.date = date;
 }
 
-TimeTable.prototype.refreshData = function (time) {
+Timetable.prototype.refreshData = function (time) {
     var dataTmp = this.data;
     $.ajax({
         async:false,
-        url:"timeTable.do?method=load",
+        url:"timetable.do?method=load",
         dataType:"json",
         data:{
             time:time
@@ -80,17 +80,17 @@ TimeTable.prototype.refreshData = function (time) {
     this.data = dataTmp;
 };
 
-TimeTable.prototype.load = function () {
+Timetable.prototype.load = function () {
     this.refreshData(null);
     this.element.append($("#tableTmpl").tmpl(this.data));
 };
 
-TimeTable.prototype.save = function (dest) {
+Timetable.prototype.save = function (dest) {
     var isModified = false;
     var time = null;
     $.ajax({
         async:false,
-        url:"timeTable.do?method=save",
+        url:"timetable.do?method=save",
         type:"post",
         dataType:"json",
         data:dest,
@@ -109,7 +109,7 @@ TimeTable.prototype.save = function (dest) {
     }
 };
 
-TimeTable.prototype.reload = function (time) {
+Timetable.prototype.reload = function (time) {
     this.refreshData(time);
     var ulElements = this.element.find("ul");
     var table = this.data.table;
@@ -122,7 +122,7 @@ TimeTable.prototype.reload = function (time) {
 };
 
 
-TimeTable.prototype.sort = function () {
+Timetable.prototype.sort = function () {
     var thisObj = this;
     var dest = {
         dayFrom:null,
@@ -134,14 +134,15 @@ TimeTable.prototype.sort = function () {
         name:null
     };
 
-    var ulElements = thisObj.element.find('ul');
-    var ulElement = null;
-    var divElement = null;
+    var liTag = null;
+    var ulTags = thisObj.element.find('ul');
+    var ulTag = null;
+    var divTag = null;
     thisObj.element.on("mousedown", "li", function (e) {
-        var liElement = $(e.target);
-        ulElement = liElement.parent();
-        divElement = ulElement.parent();
-        ulElement.css('height', divElement.height()).css('padding-bottom', 0)
+        liTag = $(e.target);
+        ulTag = liTag.parent();
+        divTag = ulTag.parent();
+        ulTag.css('height', divTag.height()).css('padding-bottom', 0)
             .css('margin-bottom', 0);
         if (e && e.stopPropagation){
             e.stopPropagation();
@@ -151,21 +152,22 @@ TimeTable.prototype.sort = function () {
     });
 
 
-    ulElements.sortable({
+    ulTags.sortable({
         // opacity : 0.6,
         items:'li',
         start:function (event, ui) {
+            var divHeight = divTag.height()+liTag.height();
+            divTag.css("height",divHeight);
+            ulTag.css("height",divHeight);
 
-            var $item = ui.item;
-            var $ulItem = $item.parent('ul');
-
-            dest.periodFrom = $ulItem.parent('div').index() - 1;
-            dest.dayFrom = $ulItem.index() - 1;
-            dest.posFrom = $item.index();
+            dest.periodFrom = divTag.index() - 1;
+            dest.dayFrom = ulTag.index() - 1;
+            dest.posFrom = liTag.index();
         },
         stop:function (event, ui) {
-            ulElement.css('height', 'auto').css('padding-bottom', '3000px')
+            ulTag.css('height', 'auto').css('padding-bottom', '3000px')
                 .css('margin-bottom', '-3000px');
+            divTag.css("height","auto");
 
             var $item = ui.item;
             var $ulItem = $item.parent('ul');
@@ -178,14 +180,11 @@ TimeTable.prototype.sort = function () {
                 dest.time = thisObj.date.getTime()
                 thisObj.save(dest);
             }
-        },
-        change:function (evnet, ui) {
-            ulElement.css('height', divElement.height());
         }
     }).sortable({
             placeholder:'ui-state-highlight'
         }).sortable({
-            connectWith:ulElements
+            connectWith:ulTags
         }).disableSelection();
 };
 

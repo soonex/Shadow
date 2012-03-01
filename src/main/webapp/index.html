@@ -32,7 +32,7 @@
                 </li>
                 <li class="ui-nav-item ui-nav-item-current">
                     <a href="#" class="ui-nav-item-link">
-                        <cite>App Store</cite>
+                        <cite>App</cite>
                         <i></i>
                     </a>
                 </li>
@@ -67,15 +67,15 @@
 
                 <div class="content fn-left">
                     <div class="content-item">
-                        <h1>Time Table</h1>
+                        <h1>Timetable</h1>
                     </div>
                     <div class="content-item">
                         <div class="msg">
                             <p></p>
                         </div>
-                        <div id="timeTable" class="timeTable">
+                        <div id="timetable" class="timetable">
                             <div>
-                                <span></span>
+                                <span class="empty"></span>
                                 <span>Monday</span>
                                 <span>Tuesday</span>
                                 <span>Wednesday</span>
@@ -86,7 +86,12 @@
                     </div>
                 </div>
                 <div class="side">
-                    <div id="datepicker"></div>
+                    <div id="date-picker"></div>
+                    <div id="name-list">
+                        <div class="name-list-cnt">
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- .ui-wrap-cnt  -->
@@ -138,21 +143,21 @@
 
 <script id="tableTmpl" type="text/html">
     {{tmpl($item.data.table) "#rowsTmpl"}}
-    <div  class="fn-clear">
-        <dl></dl>
-        <dl></dl>
-        <dl></dl>
-        <dl></dl>
-        <dl></dl>
-        <dl></dl>
-    </div>
+    <dl>
+        <dt></dt>
+        <dd></dd>
+        <dd></dd>
+        <dd></dd>
+        <dd></dd>
+        <dd></dd>
+    </dl>
 </script>
 
 <script id="rowsTmpl" type="text/html">
     <div>
         {{each(i,$trainees) $item.data}}
         {{if i == 0}}
-        <span>8:00 - 9:00</span>
+        <span  class="time">8:00 - 9:00</span>
         {{/if}}
         <ul>
             {{tmpl($trainees) "#traineeTmpl"}}

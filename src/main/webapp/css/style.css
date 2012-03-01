@@ -14,6 +14,10 @@ html {
     _position: absolute;/* for ie-6 */
 }
 
+#header .ui-wrap-cnt{
+    width: 960px;
+}
+
 #header .logo {
     line-height: 40px;
     font-size: 20px;
@@ -30,20 +34,21 @@ html {
 }
 
 #main .content{
-    position: relative;
     padding: 15px 0;
-    /*width: 720px\9;*/
-    /*width: 719px;*/
     width: 74.8%;
     min-height: 600px;
     height: auto;
     background: white;
     border-right: 1px solid #E1E1E1;
+
+    -moz-box-shadow: -1px 1px 1px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #main .content-item{
     padding: 15px;
-    border-bottom: 1px dotted #D1D1D1;
+    border-bottom: 1px dashed #D1D1D1;
 }
 
 #main .ui-wrap-cnt, #main .ui-rc-1px {
@@ -55,56 +60,7 @@ html {
     padding: 15px 0;
     /*width: 240px;*/
     width: 25%;
-    text-align: center;
 }
-
-#datepicker{
-    display: inline-block;
-    padding: 15px 0;
-    width: 100%;
-    text-align: center;
-}
-
-#datepicker .ui-datepicker{
-    display: inline-block;
-    width: 80%;
-    font:12px/1.5 "微软雅黑",tahoma,arial,\5b8b\4f53;
-}
-
-#datepicker .ui-datepicker-prev:hover,#datepicker .ui-datepicker-next:hover{
-    cursor: pointer;
-}
-
-.ui-widget-header {
-    background: #F6A828;
-}
-
-.ui-widget-content {
-    background:#EEE;
-}
-
-.ui-widget-content .ui-state-default,.ui-widget-content .ui-draggable-dragging{
-    background:#F6F6F6;
-}
-
-.ui-widget-content .ui-draggable-dragging{
-    border: 1px solid #CCCCCC;
-    color: #1C94C4;
-    font-weight: bold;
-}
-
-
-
-
-
-.timeTable .day-hover li{
-    border: 1px solid #A1A1A8;
-}
-
-.timeTable a.ui-state-highlight{
-    display: none;
-}
-
 
 #main .msg {
     /*background: #F7F7F9;*/
@@ -131,55 +87,6 @@ html {
 }
 
 /* footer**/
-
-/** time table*/
-.timeTable{
-}
-
-.timeTable div{
-    overflow: hidden;
-}
-
-.timeTable span:first-child,.timeTable dl:first-child{
-    border-left: 1px solid #DDD;
-}
-
-.timeTable ul, .timeTable span,.timeTable dl{
-    float: left;
-    padding-bottom: 3000px;
-    margin-bottom: -3000px;
-    width: 16.4%;
-    min-height: 45px;
-    height: auto;
-    background: #F9F9F9;
-    border-right: 1px solid #DDD;
-    border-top: 1px solid #DDD;
-    text-align: center;
-}
-
-.timeTable span{
-    line-height: 30px;
-    min-height: 30px;
-}
-
-.timeTable dl{
-    padding-bottom: 0;
-    margin-bottom: 0;
-    min-height: 0;
-    border-top: 0;
-    border-bottom: 1px solid #DDD;
-    font-size:0;
-}
-
-.timeTable li{
-    margin: 6px;
-    padding: 4px;
-    background-color: #F3F3F3;
-    border: 1px solid #E1E1E8;
-    color: #1E347B;
-    cursor: default;
-}
-/* timeTable **/
 
 /** ui-wrap-item */
 .ui-wrap{}
@@ -280,18 +187,131 @@ html {
     color: #FFF;
 }
 
-#header, #main .ui-wrap-cnt, #footer .ui-wrap-cnt {
+#header,.ui-wrap-cnt,.ui-wrap-cnt {
     -moz-box-shadow: -1px 1px 1px rgba(0, 0, 0, .5);
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-#main .content{
-    -moz-box-shadow: -1px 1px 1px rgba(0, 0, 0, .1);
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 .pos-absolute{
     position: absolute;
+}
+
+/** time table*/
+.timetable{}
+
+.timetable div{
+    overflow: hidden;
+    _display: inline;
+    _zoom:1;
+}
+
+.timetable .time,.timetable .empty,.timetable dt{
+    /* padding and margin here will effect chrome's performance */
+    border-left: 1px solid #DDD;
+}
+
+.timetable ul, .timetable span,.timetable dt,.timetable dd{
+    float: left;
+    width: 16.46%;
+    /*_width:110px;*/
+    min-height: 45px;
+    height: auto;
+    background: #F9F9F9;
+    border-right: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    text-align: center;
+}
+.timetable ul, .timetable span{
+    padding-bottom: 3000px;
+    margin-bottom: -3000px;
+}
+
+
+.timetable span{
+    line-height: 30px;
+    min-height: 30px;
+}
+
+.timetable dt,.timetable dd{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    min-height: 0;
+    border-top: 0;
+    border-bottom: 1px solid #DDD;
+    font-size:0;
+}
+
+.timetable li{
+    margin: 6px;
+    padding: 4px;
+    background-color: #F3F3F3;
+    border: 1px solid #E1E1E8;
+    color: #1E347B;
+    cursor: default;
+}
+
+.timetable .day-hover li{   /* use for dragging*/
+    border: 1px solid #A1A1A8;
+}
+
+.timetable a.ui-state-highlight{
+    display: none;
+}
+/* timetable **/
+
+
+/** date picker */
+#date-picker{
+    padding: 15px 0;
+    width: 100%;
+}
+
+#date-picker .ui-datepicker{
+    display:block;
+    margin: 0 auto;
+    width: 80%;
+    font:12px/1.5 tahoma,arial,\5b8b\4f53;
+    border: 1px solid #E1E1E1;
+
+}
+
+#date-picker .ui-datepicker-prev:hover,#date-picker .ui-datepicker-next:hover{
+    cursor: pointer;
+}
+
+.ui-widget-header {
+    background: #F6A828;
+}
+
+.ui-widget-content {
+    background:whiteSmoke;
+}
+
+.ui-widget-content .ui-state-default,.ui-widget-content .ui-draggable-dragging{
+    background:#F6F6F6;
+}
+
+.ui-widget-content .ui-draggable-dragging{
+    border: 1px solid #CCCCCC;
+    color: #1C94C4;
+    font-weight: bold;
+}
+/* date picker **/
+
+
+/** name-list*/
+#name-list{
+    width: 100%;
+    font:12px/1.5 tahoma,arial,\5b8b\4f53;
+}
+
+.name-list-cnt{
+    margin:0 auto;
+    padding: .2em .2em 0;
+    width:80%;
+    height: 100px;
+    background: #FFF;
+    border: 1px solid #E1E1E1;
 }
