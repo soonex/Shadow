@@ -133,47 +133,42 @@ html {
 /* footer**/
 
 /** time table*/
-.timetable-wrap{
-    text-align: center;
-}
-
 .timeTable{
-    background: #DDD;
-    padding: 1px;
-    display: inline-block;
-    *display: inline;/* for ie-6,7 */
-    *zoom:1;/* for ie-6,7 */
 }
-
 
 .timeTable div{
     overflow: hidden;
-    margin-top:1px;
 }
 
-.timeTable div:first-child{
-    margin-top:0;
+.timeTable span:first-child,.timeTable dl:first-child{
+    border-left: 1px solid #DDD;
 }
 
-.timeTable ul, .timeTable span{
+.timeTable ul, .timeTable span,.timeTable dl{
     float: left;
-    margin-left:1px;
-    width: 90px;
+    padding-bottom: 3000px;
+    margin-bottom: -3000px;
+    width: 16.4%;
     min-height: 45px;
     height: auto;
     background: #F9F9F9;
-    padding-bottom: 3000px;
-    margin-bottom: -3000px;
-}
-
-.timeTable span:first-child{
-    margin-left: 0;
+    border-right: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    text-align: center;
 }
 
 .timeTable span{
     line-height: 30px;
     min-height: 30px;
-    height: auto;
+}
+
+.timeTable dl{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    min-height: 0;
+    border-top: 0;
+    border-bottom: 1px solid #DDD;
+    font-size:0;
 }
 
 .timeTable li{
@@ -184,8 +179,6 @@ html {
     color: #1E347B;
     cursor: default;
 }
-
-
 /* timeTable **/
 
 /** ui-wrap-item */

@@ -66,7 +66,7 @@ TimeTable.prototype.refreshData = function (time) {
     var dataTmp = this.data;
     $.ajax({
         async:false,
-        url:"timesheet.do?method=load",
+        url:"timeTable.do?method=load",
         dataType:"json",
         data:{
             time:time
@@ -74,7 +74,7 @@ TimeTable.prototype.refreshData = function (time) {
         cache:false,
         success:function (result) {
 
-            dataTmp = toMatrix(result);
+            dataTmp = toMatrix(result.week);
         }
     });
     this.data = dataTmp;
@@ -90,7 +90,7 @@ TimeTable.prototype.save = function (dest) {
     var time = null;
     $.ajax({
         async:false,
-        url:"timesheet.do?method=save",
+        url:"timeTable.do?method=save",
         type:"post",
         dataType:"json",
         data:dest,
@@ -143,6 +143,11 @@ TimeTable.prototype.sort = function () {
         divElement = ulElement.parent();
         ulElement.css('height', divElement.height()).css('padding-bottom', 0)
             .css('margin-bottom', 0);
+        if (e && e.stopPropagation){
+            e.stopPropagation();
+        }else{
+            window.event.cancelBubble=true;
+        }
     });
 
 
@@ -169,7 +174,6 @@ TimeTable.prototype.sort = function () {
             dest.dayTo = $ulItem.index() - 1;
             dest.posTo = $item.index();
             dest.name = $.text(ui.item);
-            thisObj.element.off("mousedown");
             if (null != dest.periodTo) {
                 dest.time = thisObj.date.getTime()
                 thisObj.save(dest);

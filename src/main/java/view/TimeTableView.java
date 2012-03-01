@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-@Controller("timeSheetView")
-public class TimeSheetView extends AbstractView{
+@Controller("timeTableView")
+public class TimeTableView extends AbstractView{
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected void renderMergedOutputModel(Map map, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		logger.info("TimeSheetView ->  render view");
+		logger.info("TimeTableView ->  render view");
 		
 		ServletOutputStream out = response.getOutputStream();
 		String data = JSON.toJSONString(map.get("result"));

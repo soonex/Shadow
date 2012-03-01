@@ -70,19 +70,17 @@
                         <h1>Time Table</h1>
                     </div>
                     <div class="content-item">
-                        <div class="timetable-wrap ">
-                            <div class="msg">
-                                <p></p>
-                            </div>
-                            <div id="timeTable" class="timeTable">
-                                <div>
-                                    <span></span>
-                                    <span>Monday</span>
-                                    <span>Tuesday</span>
-                                    <span>Wednesday</span>
-                                    <span>Thursday</span>
-                                    <span>Friday</span>
-                                </div>
+                        <div class="msg">
+                            <p></p>
+                        </div>
+                        <div id="timeTable" class="timeTable">
+                            <div>
+                                <span></span>
+                                <span>Monday</span>
+                                <span>Tuesday</span>
+                                <span>Wednesday</span>
+                                <span>Thursday</span>
+                                <span>Friday</span>
                             </div>
                         </div>
                     </div>
@@ -140,6 +138,14 @@
 
 <script id="tableTmpl" type="text/html">
     {{tmpl($item.data.table) "#rowsTmpl"}}
+    <div  class="fn-clear">
+        <dl></dl>
+        <dl></dl>
+        <dl></dl>
+        <dl></dl>
+        <dl></dl>
+        <dl></dl>
+    </div>
 </script>
 
 <script id="rowsTmpl" type="text/html">

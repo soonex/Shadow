@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/timesheet.do")
+@RequestMapping("/timeTable.do")
 @SessionAttributes("week")
-public class TimeSheetController {
+public class TimeTableController {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -31,9 +31,15 @@ public class TimeSheetController {
 	@Resource
 	WeekService weekService;
 
+    /**
+     *
+     * @param model ModelMap
+     * @param time time of the selected date
+     * @return timeTableView
+     */
 	@RequestMapping(params = "method=load", method = RequestMethod.GET)
 	public String load(ModelMap model,String time) {
-		logger.info("TimeSheetController ->  load time table");
+		logger.info("TimeTableController ->  load time table");
 
 		Date date = new Date();
         if(!"null".equals(time)){
@@ -46,13 +52,14 @@ public class TimeSheetController {
         result.put("selectedDate", date);
         model.addAttribute("result",result);
 
-		return "timeSheetView";
+		return "timeTableView";
 	}
+
 
 	@RequestMapping(params = "method=save", method = RequestMethod.POST)
 	public String save(ModelMap model,int dayFrom, int dayTo, int periodFrom, int periodTo,
 			int posFrom, int posTo, long time ,String name) {
-		logger.info("TimeSheetController ->  save time table");
+		logger.info("TimeTableController ->  save time table");
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -66,8 +73,7 @@ public class TimeSheetController {
 		Day dayto = days.get(dayTo);
 
 		// update successfully or not
-		boolean success = false;
-		success = dayService.transfer(dayfrom, dayto, name, periodFrom,
+		boolean success = dayService.transfer(dayfrom, dayto, name, periodFrom,
 				periodTo, posFrom, posTo);
 
         result.put("time",date.getTime());
@@ -76,6 +82,6 @@ public class TimeSheetController {
 		}
 
 		model.addAttribute("result", result);
-		return "timeSheetView";
+		return "timeTableView";
 	}
 }
