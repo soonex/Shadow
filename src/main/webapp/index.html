@@ -75,12 +75,12 @@
                         </div>
                         <div id="timetable" class="timetable">
                             <div>
-                                <span class="empty"></span>
-                                <span>Monday</span>
-                                <span>Tuesday</span>
-                                <span>Wednesday</span>
-                                <span>Thursday</span>
-                                <span>Friday</span>
+                                <ul class="empty"></ul>
+                                <ul><li>Monday</li></ul>
+                                <ul><li>Tuesday</li></ul>
+                                <ul><li>Wednesday</li></ul>
+                                <ul><li>Thursday</li></ul>
+                                <ul><li>Friday</li></ul>
                             </div>
                         </div>
                     </div>
@@ -143,23 +143,23 @@
 
 <script id="tableTmpl" type="text/html">
     {{tmpl($item.data.table) "#rowsTmpl"}}
-    <dl>
-        <dt></dt>
-        <dd></dd>
-        <dd></dd>
-        <dd></dd>
-        <dd></dd>
-        <dd></dd>
-    </dl>
+    <div class="bottom-border">
+        <ul class="empty"></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+        <ul></ul>
+    </div>
 </script>
 
 <script id="rowsTmpl" type="text/html">
     <div>
         {{each(i,$trainees) $item.data}}
         {{if i == 0}}
-        <span  class="time">8:00 - 9:00</span>
+        <ul  class="time"><li>8:00 - 9:00</li></ul>
         {{/if}}
-        <ul>
+        <ul class="ui-sortable">
             {{tmpl($trainees) "#traineeTmpl"}}
         </ul>
         {{/each}}

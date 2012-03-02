@@ -199,42 +199,49 @@ html {
 }
 
 /** time table*/
-.timetable{}
-
-.timetable div{
-    overflow: hidden;
-    _display: inline;
-    _zoom:1;
+.timetable{
+    text-align: center;
 }
 
-.timetable .time,.timetable .empty,.timetable dt{
+
+.deltag {
+    display: inline-block;
+    clear: both;
+    text-decoration: none;
+}
+
+.timetable div{
+    display: table;
+    margin:0 auto;
+    width: 80%;
+    *position:relative;
+    *overflow: hidden;
+}
+
+.timetable .time,.timetable .empty{
     /* padding and margin here will effect chrome's performance */
     border-left: 1px solid #DDD;
 }
 
-.timetable ul, .timetable span,.timetable dt,.timetable dd{
-    float: left;
-    width: 16.46%;
-    /*_width:110px;*/
+.timetable ul{
+    display:table-cell;
+    width:16.36%;
     min-height: 45px;
     height: auto;
     background: #F9F9F9;
     border-right: 1px solid #DDD;
     border-top: 1px solid #DDD;
+    /*border-bottom: 1px solid #DDD;*/
     text-align: center;
-}
-.timetable ul, .timetable span{
-    padding-bottom: 3000px;
-    margin-bottom: -3000px;
+    *float: left;
 }
 
-
-.timetable span{
-    line-height: 30px;
-    min-height: 30px;
+.timetable ul{
+    *padding-bottom: 3000px;
+    *margin-bottom: -3000px;
 }
 
-.timetable dt,.timetable dd{
+.timetable .bottom-border ul{
     padding-bottom: 0;
     margin-bottom: 0;
     min-height: 0;
@@ -243,7 +250,7 @@ html {
     font-size:0;
 }
 
-.timetable li{
+.timetable .ui-sortable li{
     margin: 6px;
     padding: 4px;
     background-color: #F3F3F3;

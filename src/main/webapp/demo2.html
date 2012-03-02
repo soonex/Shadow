@@ -1,61 +1,103 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
-    <title>无标题文档</title>
-
     <style type="text/css">
         <!--
-        .footer {
-            position: absolute;
-            top: 0px;
-            height: 46px;
+        body {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            text-align: center
         }
 
-        .footer-left, .footer-right, .footer-center {
-            height: 46px;
-            border: 1px #ccc solid
+
+        #tabs_example_two {
+            display: table;
+            padding: 0;
+            margin: 0 auto;
+            list-style-type: none;
+            white-space: nowrap;
         }
 
-        .footer-left {
-            width: 32px;
-            float: left;
-            background: #456445;
-            margin: 0px 0 0 0;
-            overflow: hidden
+        #tabs_example_two li {
+            display: table-cell;
         }
 
-        .footer-center {
+        #tabs_example_two a {
             width: auto;
-            overflow: auto;
-            float: left;
-            background: #787978;
-            margin: 0;
-            padding: 0 0px 0 0px;
+            display: block;
+            padding: 4px 16px;
+            color: #fff;
+            background: #08c;
+            border: 1px solid #fff;
+            text-decoration: none;
         }
 
-        .footer-right {
-            width: 22px;
-            float: right;
-            background: #949465;
-            margin: 0px 0 0 0;
-            overflow: hidden
+        #tabs_example_two a:hover {
+            color: #000;
+            background: #d4d4d4;
+        }
+
+        .containerdel {
+            clear: both;
+            text-decoration: none;
+        }
+
+        .deltag {
+            clear: both;
+            text-decoration: none;
         }
 
         -->
     </style>
+    <!--[if lte IE 7]>
+    <style type="text/css">
+        #tabs_example_two li {
+            float: left;
+        }
+
+        #tabs_example_two a {
+            float: left;
+        }
+
+        .deltag {
+            display: inline-block;
+        }
+    </style>
+    <![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>未知宽度的ul水平居中</title>
 </head>
-
 <body>
-<div class="footer">
-    <div class="footer-left"></div>
-    <div class="footer-center">
-        gjhgjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjffffffffffffffffffffffffffffffffffffffffffffjjjjjjffffffffffffffffffffffffffffffffffffffffffffjjjjj
-    </div>
-    <div class="footer-right"></div>
-</div>
-
-
+<!--<ul id="menu1">-->
+    <!--<li><a href="#nogo">Tab One</a></li>-->
+    <!--<li><a href="#nogo">Tab Two</a></li>-->
+    <!--<li><a href="#nogo">Tab Three</a></li>-->
+    <!--<li><a href="#nogo">Tab Four</a></li>-->
+<!--</ul>-->
+<!--<p style="clear:both;"></p>-->
+<!--<del class="deltag">-->
+    <!--<ul id="menu2">-->
+        <!--<li><a href="#nogo">Tab One</a></li>-->
+        <!--<li><a href="#nogo">Tab Two: Longer</a></li>-->
+        <!--<li><a href="#nogo">Tab Three: Longest</a></li>-->
+        <!--<li><a href="#nogo">Tab Four</a></li>-->
+    <!--</ul>-->
+<!--</del>-->
+<!--<p style="clear:both;"></p>-->
+<!--[if IE]>
+<del class="deltag">
+<![endif]-->
+<ul id="tabs_example_two" class="subsection_tabs"
+    style="  display:table;  padding:0;   margin:0 auto;   list-style-type:none;  white-space:nowrap;">
+    <li class="tab" style="display:table-cell;"><a href="#a1">d</a></li>
+    <li class="tab" style="display:table-cell;"><a href="#b1">d</a></li>
+    <li class="tab" style="display:table-cell;"><a href="#c1">d</a></li>
+</ul>
+<!--[if IE]>
+</del>
+<![endif]-->
 </body>
 </html>

@@ -135,15 +135,15 @@ Timetable.prototype.sort = function () {
     };
 
     var liTag = null;
-    var ulTags = thisObj.element.find('ul');
+    var ulTags = thisObj.element.find('.ui-sortable');
     var ulTag = null;
     var divTag = null;
     thisObj.element.on("mousedown", "li", function (e) {
         liTag = $(e.target);
         ulTag = liTag.parent();
         divTag = ulTag.parent();
-        ulTag.css('height', divTag.height()).css('padding-bottom', 0)
-            .css('margin-bottom', 0);
+//        ulTag.css('height', divTag.height()).css('padding-bottom', 0)
+//            .css('margin-bottom', 0);
         if (e && e.stopPropagation){
             e.stopPropagation();
         }else{
@@ -156,18 +156,18 @@ Timetable.prototype.sort = function () {
         // opacity : 0.6,
         items:'li',
         start:function (event, ui) {
-            var divHeight = divTag.height()+liTag.height();
-            divTag.css("height",divHeight);
-            ulTag.css("height",divHeight);
+//            var divHeight = divTag.height()+liTag.height();
+//            divTag.css("height",divHeight);
+//            ulTag.css("height",divHeight);
 
             dest.periodFrom = divTag.index() - 1;
             dest.dayFrom = ulTag.index() - 1;
             dest.posFrom = liTag.index();
         },
         stop:function (event, ui) {
-            ulTag.css('height', 'auto').css('padding-bottom', '3000px')
-                .css('margin-bottom', '-3000px');
-            divTag.css("height","auto");
+//            ulTag.css('height', 'auto').css('padding-bottom', '3000px')
+//                .css('margin-bottom', '-3000px');
+//            divTag.css("height","auto");
 
             var $item = ui.item;
             var $ulItem = $item.parent('ul');
