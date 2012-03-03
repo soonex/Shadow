@@ -200,22 +200,15 @@ html {
 
 /** time table*/
 .timetable{
-    text-align: center;
-}
-
-
-.deltag {
-    display: inline-block;
-    clear: both;
-    text-decoration: none;
+    *text-align: center;
 }
 
 .timetable div{
     display: table;
     margin:0 auto;
     width: 80%;
-    *position:relative;
-    *overflow: hidden;
+    *position:relative;/* for ie-6,7 */
+    *overflow: hidden;/* for ie-6,7 */
 }
 
 .timetable .time,.timetable .empty{
@@ -223,22 +216,25 @@ html {
     border-left: 1px solid #DDD;
 }
 
-.timetable ul{
-    display:table-cell;
-    width:16.36%;
-    min-height: 45px;
+.timetable .time,.timetable .day{
+    line-height: 40px;
+    min-height: 40px;
     height: auto;
-    background: #F9F9F9;
-    border-right: 1px solid #DDD;
-    border-top: 1px solid #DDD;
-    /*border-bottom: 1px solid #DDD;*/
-    text-align: center;
-    *float: left;
 }
 
 .timetable ul{
-    *padding-bottom: 3000px;
-    *margin-bottom: -3000px;
+    display:table-cell;
+    width:16.36%;
+    background: #F9F9F9;
+    border-right: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    text-align: center;
+    *float: left;/* for ie-6,7 */
+}
+
+.timetable ul{
+    *padding-bottom: 3000px;/* for ie-6,7 */
+    *margin-bottom: -3000px;/* for ie-6,7 */
 }
 
 .timetable .bottom-border ul{
@@ -256,16 +252,17 @@ html {
     background-color: #F3F3F3;
     border: 1px solid #E1E1E8;
     color: #1E347B;
+    text-align: left;
     cursor: default;
 }
 
-.timetable .day-hover li{   /* use for dragging*/
-    border: 1px solid #A1A1A8;
-}
+/*.timetable .day-hover li{   *//* use for dragging*/
+    /*border: 1px solid #A1A1A8;*/
+/*}*/
 
-.timetable a.ui-state-highlight{
-    display: none;
-}
+/*.timetable a.ui-state-highlight{*/
+    /*display: none;*/
+/*}*/
 /* timetable **/
 
 
@@ -273,6 +270,7 @@ html {
 #date-picker{
     padding: 15px 0;
     width: 100%;
+    border-bottom: 1px dashed #D1D1D1;
 }
 
 #date-picker .ui-datepicker{
@@ -310,15 +308,105 @@ html {
 
 /** name-list*/
 #name-list{
-    width: 100%;
-    font:12px/1.5 tahoma,arial,\5b8b\4f53;
+    padding:15px 0;
 }
 
-.name-list-cnt{
+.name-list-search{
     margin:0 auto;
-    padding: .2em .2em 0;
     width:80%;
-    height: 100px;
-    background: #FFF;
     border: 1px solid #E1E1E1;
 }
+
+
+.name-list-cnt{
+    margin:15px auto;
+    width:80%;
+    height: 100px;
+    background: white;
+    border: 1px solid #E1E1E1;
+}
+
+.name-list-odd,.name-list-even{
+    margin: 0 auto;
+    float: left;
+    width: 50%;
+    height: 100px;
+}
+
+/* name-list **/
+
+/** u-search */
+.ui-search{
+    background: white;
+}
+
+.ui-search-current{}
+
+.ui-search-flag-wrap,.ui-search-input-wrap,.ui-search-btn-wrap{
+    width: 24px;
+    padding: 2px;
+    text-align: center;
+    background: transparent;
+    vertical-align: middle;
+}
+
+.ui-search-flag-wrap{
+    float: left;
+}
+
+.ui-search-flag{
+    border: 0;
+}
+
+
+.ui-search-input-wrap{
+    margin-right: 24px;
+    margin-left: 24px;
+    width: auto;
+}
+
+.ui-search-input{
+    width: 90%;
+    border: 0;
+    outline-style: none;
+}
+
+
+.ui-search-btn-wrap{
+    float: right;
+    background: #EEE;
+    border-left: 1px solid #E1E1E1;
+    cursor: pointer;
+}
+
+.ui-search-btn-wrap:hover{
+    background: #FED22F;
+}
+
+.ui-search-btn{
+    border: 0;
+    cursor: pointer;
+}
+
+/* u-search **/
+
+/** bootstrap icons*/
+
+.icon{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background: url("../img/glyphicons-halflings.png") no-repeat 14px 14px;
+}
+
+.icon-plus {
+    background-position: -408px -96px;
+}
+
+.icon-user {
+    background-position: -168px 0;
+}
+
+/* bootstrap icons **/

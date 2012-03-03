@@ -26,6 +26,27 @@ $(function () {
         }
     });
 
+    var $name_list = $("#name-list");
+    var $ui_search_btn = $name_list.find(".ui-search-btn");
+    $ui_search_btn.click(function(e){
+        var $ui_search_input = $name_list.find(".ui-search-input");
+        var $name_list_cnt = $name_list.find(".name-list-cnt");
+        var $liElem = $("<li/>").text($ui_search_input.val());
+        var liCount = $name_list_cnt.find("li").length;
+        if( 0 == liCount % 2){
+            $name_list_cnt.children(".name-list-odd").append($liElem);
+        }else{
+            $name_list_cnt.children(".name-list-even").append($liElem);
+        }
+    });
+    
+//    var $ui_search = $(".ui-search");
+//    $ui_search.on("focus",".ui-search-input",function(e){
+//        $ui_search.css("background-color","white");
+//    }).on("blur",".ui-search-input",function(e){
+//            $ui_search.css("background-color","whiteSmoke");
+//    });
+
     if (!$.browser.msie || $.browser.version >= 8) {
 
         $date_picker.on("mouseenter", ".ui-state-default", function (e) {
@@ -111,7 +132,7 @@ Timetable.prototype.save = function (dest) {
 
 Timetable.prototype.reload = function (time) {
     this.refreshData(time);
-    var ulElements = this.element.find("ul");
+    var ulElements = this.element.find(".ui-sortable");
     var table = this.data.table;
     for (var row = 0; row < table.length; ++row) {
         for (var col = 0; col < table[row].length; ++col) {
@@ -123,6 +144,7 @@ Timetable.prototype.reload = function (time) {
 
 
 Timetable.prototype.sort = function () {
+    var isLTE7 = $.browser.msie && $.browser.version < 8;
     var thisObj = this;
     var dest = {
         dayFrom:null,
@@ -142,8 +164,12 @@ Timetable.prototype.sort = function () {
         liTag = $(e.target);
         ulTag = liTag.parent();
         divTag = ulTag.parent();
-//        ulTag.css('height', divTag.height()).css('padding-bottom', 0)
-//            .css('margin-bottom', 0);
+
+        if (isLTE7) {
+            ulTag.css('height', divTag.height()).css('padding-bottom', 0)
+                .css('margin-bottom', 0);
+        }
+
         if (e && e.stopPropagation){
             e.stopPropagation();
         }else{
@@ -156,18 +182,22 @@ Timetable.prototype.sort = function () {
         // opacity : 0.6,
         items:'li',
         start:function (event, ui) {
-//            var divHeight = divTag.height()+liTag.height();
-//            divTag.css("height",divHeight);
-//            ulTag.css("height",divHeight);
+            if (isLTE7) {
+                var divHeight = divTag.height() + liTag.height();
+                divTag.css("height", divHeight);
+                ulTag.css("height", divHeight);
+            }
 
             dest.periodFrom = divTag.index() - 1;
             dest.dayFrom = ulTag.index() - 1;
             dest.posFrom = liTag.index();
         },
         stop:function (event, ui) {
-//            ulTag.css('height', 'auto').css('padding-bottom', '3000px')
-//                .css('margin-bottom', '-3000px');
-//            divTag.css("height","auto");
+            if (isLTE7) {
+                ulTag.css('height', 'auto').css('padding-bottom', '3000px')
+                    .css('margin-bottom', '-3000px');
+                divTag.css("height", "auto");
+            }
 
             var $item = ui.item;
             var $ulItem = $item.parent('ul');
@@ -177,7 +207,7 @@ Timetable.prototype.sort = function () {
             dest.posTo = $item.index();
             dest.name = $.text(ui.item);
             if (null != dest.periodTo) {
-                dest.time = thisObj.date.getTime()
+                dest.time = thisObj.date.getTime();
                 thisObj.save(dest);
             }
         }
