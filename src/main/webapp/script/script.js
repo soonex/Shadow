@@ -13,6 +13,7 @@ $(function () {
     time_table.sort();
 
 
+    //construct date picker
     var $date_picker = $("#date-picker").datepicker({
         showAnim: '',
         onChangeMonthYear:function (year, month, inst) {
@@ -26,18 +27,18 @@ $(function () {
         }
     });
 
+    //name list click
     var $name_list = $("#name-list");
-    var $ui_search_btn = $name_list.find(".ui-search-btn");
-    $ui_search_btn.click(function(e){
+    var $ui_search_btn_wrap = $name_list.find(".ui-search-btn-wrap");
+    $ui_search_btn_wrap.click(function(){
         var $ui_search_input = $name_list.find(".ui-search-input");
-        var $name_list_cnt = $name_list.find(".name-list-cnt");
-        var $liElem = $("<li/>").text($ui_search_input.val());
-        var liCount = $name_list_cnt.find("li").length;
-        if( 0 == liCount % 2){
-            $name_list_cnt.children(".name-list-odd").append($liElem);
-        }else{
-            $name_list_cnt.children(".name-list-even").append($liElem);
-        }
+        var $ui_sortable = $name_list.find(".ui-sortable");
+        var $iconSpanElem = $("<span class='icon icon-user'/>");
+        var $nameSpanElem = $("<span class='ui-sortable-user-name'/>");
+        var $liElem = $("<li class='ui-sortable-user'/>").append($iconSpanElem)
+                        .append($nameSpanElem.text($ui_search_input.val()));
+        var index = ($ui_sortable.find("li").length+1) % 2;// which ul to add li
+        $ui_sortable.eq(index).append($liElem);
     });
     
 //    var $ui_search = $(".ui-search");
@@ -60,7 +61,7 @@ $(function () {
 //            accept:'.ui-state-default',
 //            over:function (event, ui) {
 //                var targetUL = $(this);
-//                var ulElements = time_table.element.children("div").find("ul.ui-sortable:eq(" + (targetUL.index() - 1) + ")");
+//                var ulElements = time_table.element.find("div").find("ul.ui-sortable:eq(" + (targetUL.index() - 1) + ")");
 //                ulElements.addClass("day-hover");
 //            },
 //            out:function (event, ui) {
@@ -144,7 +145,6 @@ Timetable.prototype.reload = function (time) {
 
 
 Timetable.prototype.sort = function () {
-    var isLTE7 = $.browser.msie && $.browser.version < 8;
     var thisObj = this;
     var dest = {
         dayFrom:null,
@@ -156,18 +156,18 @@ Timetable.prototype.sort = function () {
         name:null
     };
 
-    var liTag = null;
-    var ulTags = thisObj.element.find('.ui-sortable');
-    var ulTag = null;
-    var divTag = null;
+    var $ui_sortable = thisObj.element.find('.ui-sortable');
     thisObj.element.on("mousedown", "li", function (e) {
-        liTag = $(e.target);
-        ulTag = liTag.parent();
-        divTag = ulTag.parent();
 
-        if (isLTE7) {
-            ulTag.css('height', divTag.height()).css('padding-bottom', 0)
-                .css('margin-bottom', 0);
+        if($.browser.msie && $.browser.version < 8){
+            var ulTag = this.parentNode;
+            var divTag = ulTag.parentNode;
+
+            var divHeight = divTag.offsetHeight + this.offsetHeight;
+            ulTag.style.height = divHeight+"px";
+            ulTag.style.paddingBottom = 0;
+            ulTag.style.marginBottom = 0;
+            divTag.style.height = divHeight+"px";
         }
 
         if (e && e.stopPropagation){
@@ -178,34 +178,31 @@ Timetable.prototype.sort = function () {
     });
 
 
-    ulTags.sortable({
+    $ui_sortable.sortable({
         // opacity : 0.6,
         items:'li',
         start:function (event, ui) {
-            if (isLTE7) {
-                var divHeight = divTag.height() + liTag.height();
-                divTag.css("height", divHeight);
-                ulTag.css("height", divHeight);
-            }
+            var $ulTagFrom = ui.item.parent();
+            var $divTagFrom = $ulTagFrom.parent();
+            dest.periodFrom = $divTagFrom.index() - 1;
+            dest.dayFrom = $ulTagFrom.index() - 1;
+            dest.posFrom = ui.item.index();
 
-            dest.periodFrom = divTag.index() - 1;
-            dest.dayFrom = ulTag.index() - 1;
-            dest.posFrom = liTag.index();
         },
         stop:function (event, ui) {
-            if (isLTE7) {
-                ulTag.css('height', 'auto').css('padding-bottom', '3000px')
-                    .css('margin-bottom', '-3000px');
-                divTag.css("height", "auto");
+            if($.browser.msie && $.browser.version < 8){
+                this.removeAttribute("style");
+                this.parentNode.removeAttribute("style");
             }
 
-            var $item = ui.item;
-            var $ulItem = $item.parent('ul');
+            var $liTagTo = ui.item;
+            var $ulTagTo = $liTagTo.parent();
+            var $divTagTo = $ulTagTo.parent();
 
-            dest.periodTo = $ulItem.parent('div').index() - 1;
-            dest.dayTo = $ulItem.index() - 1;
-            dest.posTo = $item.index();
-            dest.name = $.text(ui.item);
+            dest.periodTo = $divTagTo.index() - 1;
+            dest.dayTo = $ulTagTo.index() - 1;
+            dest.posTo = $liTagTo.index();
+            dest.name = $.trim($liTagTo.find(".name").text());
             if (null != dest.periodTo) {
                 dest.time = thisObj.date.getTime();
                 thisObj.save(dest);
@@ -214,7 +211,7 @@ Timetable.prototype.sort = function () {
     }).sortable({
             placeholder:'ui-state-highlight'
         }).sortable({
-            connectWith:ulTags
+            connectWith:$ui_sortable
         }).disableSelection();
 };
 

@@ -69,11 +69,11 @@ public class TimetableController {
         Week week = weekService.findByDate(date);
         List<Day> days = week.getDays();
 
-        Day dayTransFrom = days.get(dayFrom);
-        Day dayTransTo = days.get(dayTo);
+        Day dayfrom = days.get(dayFrom);
+        Day dayto = days.get(dayTo);
 
         // update successfully or not
-        boolean success = dayService.transfer(dayTransFrom, dayTransTo, name, periodFrom,
+        boolean success = dayService.transfer(dayfrom, dayto, name, periodFrom,
                 periodTo, posFrom, posTo);
 
         result.put("time",date.getTime());

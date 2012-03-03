@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>Shadow</title>
-    <META content="text/html; charset=UTF-8" http-equiv=content-type>
+    <meta content="text/html; charset=UTF-8" http-equiv=content-type>
+    <meta http-equiv="Cache-Control" content="max-age=7200" />
+    <meta http-equiv="Expires" content="Mon, 20 Jul 2009 23:00:00 GMT" />
     <!-- style -->
     <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>-->
     <!--<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>-->
@@ -102,8 +104,13 @@
                             </div>
                         </div>
                         <div class="name-list-cnt">
-                            <ul class="name-list-odd"></ul>
-                            <ul class="name-list-even"></ul>
+                            <ul class="ui-sortable">
+                                <li class="ui-sortable-user fn-hide">
+                                    <span class="icon icon-user"></span>
+                                    <span class="ui-sortable-user-name"></span>
+                                </li>
+                            </ul>
+                            <ul class="ui-sortable"></ul>
                         </div>
                     </div>
                 </div>
@@ -182,7 +189,7 @@
 
 
 <script id="traineeTmpl" type="text/html">
-    <li>
+    <li class="ui-sortable-user">
         <span class="icon icon-user"></span>
         <span class="name">{{= name}}</span>
     </li>
